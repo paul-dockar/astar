@@ -2,11 +2,16 @@
 
 void explore(void) {
     char direction_to_travel = 0;
-    char robot_x = 0;
-    char robot_y = 1;
+    int robot_x = 3;
+    int robot_y;
     char goal_x = 0;
     char goal_y = 3;
     
+    printf("enter in robot x value position between 0 and 3:\n");
+    scanf("%d", &robot_x);
+    printf("enter in robot y value position between 0 and 4:\n");
+    scanf("%d", &robot_y);
+
     direction_to_travel = findPathAStar(robot_x, robot_y, goal_x, goal_y);
 
     printf("\n\n\n\n A* RESULTS: \n"

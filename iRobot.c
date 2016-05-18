@@ -8,8 +8,8 @@ void explore(void) {
     char goal_y = 3;
     
     printf("\n\n\n");
-    for (char x = 0; x != GLOBAL_X; x++) {
-        for (char y = 0; y != GLOBAL_Y; y++) {
+    for (char x = 0; x < GLOBAL_X; x++) {
+        for (char y = 0; y < GLOBAL_Y; y++) {
             printf("%d, ", global_map[x][y] );
         }
         printf("\n");
@@ -38,8 +38,8 @@ void explore(void) {
     printf("\n\n\n\n A* RESULTS: \n"
             "direction to travel = %d \n\n",direction_to_travel);
 
-    for (char x = 0; x != GLOBAL_X; x++) {
-        for (char y = 0; y != GLOBAL_Y; y++) {
+    for (char x = 0; x < GLOBAL_X; x++) {
+        for (char y = 0; y < GLOBAL_Y; y++) {
             printf("%d, ", global_map[x][y] );
         }
         printf("\n");

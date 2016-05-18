@@ -140,8 +140,8 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
         if (*neighbour.down     == GOAL) return DOWN;
         if (*neighbour.left     == GOAL) return LEFT;
 
-        for (char x = 0; x != GLOBAL_X; x++) {
-            for (char y = 0; y != GLOBAL_Y; y++) {
+        for (char x = 0; x < GLOBAL_X; x++) {
+            for (char y = 0; y < GLOBAL_Y; y++) {
                 printf("%d, ", global_map[x][y] );
             }
             printf("\n");
@@ -211,8 +211,8 @@ void pushToOpenSet(unsigned char *current_neighbour){
 }
 
 unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neighbour_direction) {
-    for (char x = 0; x != GLOBAL_X; x++) {
-        for (char y = 0; y != GLOBAL_Y; y++) {
+    for (char x = 0; x < GLOBAL_X; x++) {
+        for (char y = 0; y < GLOBAL_Y; y++) {
             if (current_node == &global_map[x][y]) {
                 if (x == 0 && neighbour_direction == UP)    return &ignore;
                 if (x == 4 && neighbour_direction == DOWN)  return &ignore;
@@ -242,8 +242,8 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
     if (neighbour == goal) return GOAL;
     if (neighbour == robot) return ROBOT;
     
-    for (char x = 0; x != GLOBAL_X; x++) {
-        for (char y = 0; y != GLOBAL_Y; y++) {
+    for (char x = 0; x < GLOBAL_X; x++) {
+        for (char y = 0; y < GLOBAL_Y; y++) {
             if (neighbour == &global_map[x][y]) {
                 pos_x = x;
                 pos_y = y;

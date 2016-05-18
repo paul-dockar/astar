@@ -85,6 +85,7 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
     unsigned char *current_open_set = 0;
     unsigned char *goal_position = &global_map[goal_x][goal_y];
     unsigned char *robot_position = &global_map[robot_x][robot_y];
+    unsigned char distance_to_travel = 0;
     
     //setup robot/goal position, clear open and closed sets, clear global map
     setupGlobalMap();
@@ -151,7 +152,7 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
         
         //print open set
         for (char i = 0; i < OPEN_SET_SIZE; i++) {
-            printf("\n open_set[%d + 1] == %p \n",i,open_set[i]);
+            printf("\n open_set[%d] == %p \n",i,open_set[i]);
         }
 
         //print closed set
@@ -231,11 +232,12 @@ unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neig
 }
 
 unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsigned char *robot, char goal_x, char goal_y) {
-    char distance=0;
-    char distance_x=0;
-    char distance_y=0;
-    char pos_x=0;
-    char pos_y=0;
+    char fScore = 0;
+    char gScore = 1;
+    char heuristic_cost_x = 0;
+    char heuristic_cost_y = 0;
+    char pos_x = 0;
+    char pos_y = 0;
 
     if (neighbour == &ignore) return MAX;
     if (neighbour == goal) return GOAL;
@@ -251,9 +253,9 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
         }
     }
 
-    distance_x = pos_x - goal_x;
-    distance_y = pos_y - goal_y;
-    distance = abs(distance_x) + abs(distance_y);
+    heuristic_cost_x = pos_x - goal_x;
+    heuristic_cost_y = pos_y - goal_y;
+    fScore = abs(heuristic_cost_x) + abs(heuristic_cost_y) + gScore;
 
     
 
@@ -262,7 +264,7 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
         if (neighbour == open_set[i]) {
             printf("\n=============================test========================\n");
             printf("neighbour on open set = %p\n",neighbour);
-            return distance;
+            return fScore;
         }
     }
     //if a node with same position as successor is in the CLOSE list, skip it
@@ -270,11 +272,11 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
         if (neighbour == closed_set[i]) {
             printf("\n=============================test========================\n");
             printf("neighbour on closed_set = %p\n",neighbour);
-            return distance;
+            return fScore;
         }
     }
     //otherwise add node to open list
     pushToOpenSet(neighbour);
 
-    return distance;
+    return fScore;
 }

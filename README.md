@@ -3,7 +3,7 @@
 This is A* code with printfs and shit in it
 
 Created in 'Pelles C for Windows" IDE.
-Download @: [http://www.smorgasbordet.com/pellesc/](Link URL)
+Download @: http://www.smorgasbordet.com/pellesc/
 
 To just run the program:
 

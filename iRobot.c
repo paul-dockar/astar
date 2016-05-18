@@ -19,7 +19,7 @@ void explore(void) {
 
     printf("enter in robot x value position between 0 and 3:\n");
     scanf("%d", &robot_x);
-    if (robot_x > 3 || robot_x < 0) {
+    while (robot_x > 3 || robot_x < 0) {
         printf("\n\nyou are a shitcunt try again\n");
         printf("enter in robot x value position between 0 and 3:\n");
         scanf("%d", &robot_x);
@@ -27,7 +27,7 @@ void explore(void) {
 
     printf("enter in robot y value position between 0 and 4:\n");
     scanf("%d", &robot_y);
-    if (robot_y > 4 || robot_y < 0) {
+    while (robot_y > 4 || robot_y < 0) {
         printf("\n\nyou are a shitcunt try again\n");
         printf("enter in robot y value position between 0 and 4:\n");
         scanf("%d", &robot_y);

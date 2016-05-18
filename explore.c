@@ -15,7 +15,6 @@ struct NEIGHBOUR {
 void initialisePointersNULL(unsigned char *array[], char size);
 void removeFromOpenSet(unsigned char *item_to_remove);
 void pushToClosedSet(unsigned char *current_open_set);
-void rearrangeOpenSet(void);
 unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neighbour_node);
 unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsigned char *robot, char goal_x, char goal_y);
 

@@ -17,6 +17,7 @@ void removeFromOpenSet(unsigned char *item_to_remove);
 void pushToClosedSet(unsigned char *current_open_set);
 unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neighbour_node);
 unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsigned char *robot, char goal_x, char goal_y);
+unsigned char findDirectionToTravel(struct NEIGHBOUR neighbour);
 
 void setupExplore(void) {
     setupGlobalMap();
@@ -85,7 +86,13 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
     unsigned char *current_open_set = 0;
     unsigned char *goal_position = &global_map[goal_x][goal_y];
     unsigned char *robot_position = &global_map[robot_x][robot_y];
-    unsigned char distance_to_travel = 0;
+    unsigned char direction_to_travel = 0;
+    unsigned char iteration = 0;
+
+    struct NEIGHBOUR neighbour;
+
+    //check if robot is in goal positon
+    if (goal_position == robot_position) return 0;
     
     //setup robot/goal position, clear open and closed sets, clear global map
     setupGlobalMap();
@@ -135,10 +142,14 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
         *neighbour.down     = checkNeighbour(neighbour.down, goal_position, robot_position, goal_x, goal_y);
         *neighbour.left     = checkNeighbour(neighbour.left, goal_position, robot_position, goal_x, goal_y);
 
-        if (*neighbour.up       == GOAL) return UP;
-        if (*neighbour.right    == GOAL) return RIGHT;
-        if (*neighbour.down     == GOAL) return DOWN;
-        if (*neighbour.left     == GOAL) return LEFT;
+        //set direction in first iteration.
+        if (iteration == 0) direction_to_travel = findDirectionToTravel(neighbour);
+
+        //exit when neighbour is the goal
+        if (*neighbour.up       == GOAL) return direction_to_travel;
+        if (*neighbour.right    == GOAL) return direction_to_travel;
+        if (*neighbour.down     == GOAL) return direction_to_travel;
+        if (*neighbour.left     == GOAL) return direction_to_travel;
 
         for (char x = 0; x < GLOBAL_X; x++) {
             for (char y = 0; y < GLOBAL_Y; y++) {
@@ -159,11 +170,10 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
         for (char i = 0; i < CLOSED_SET_SIZE; i++) {
             printf("\n closed_set[%d] == %p \n",i,closed_set[i]);
         }
+
+        iteration++;
     }
-    
-    
-    
-    return 0;
+    return direction_to_travel;
 }
 
 void initialisePointersNULL(unsigned char *array[], char size) {
@@ -234,10 +244,11 @@ unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neig
 unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsigned char *robot, char goal_x, char goal_y) {
     char fScore = 0;
     char gScore = 1;
-    char heuristic_cost_x = 0;
-    char heuristic_cost_y = 0;
+    char hScore_x = 0;
+    char hScore_y = 0;
     char pos_x = 0;
     char pos_y = 0;
+    char flag = 0;
 
     if (neighbour == &ignore) return MAX;
     if (neighbour == goal) return GOAL;
@@ -253,18 +264,16 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
         }
     }
 
-    heuristic_cost_x = pos_x - goal_x;
-    heuristic_cost_y = pos_y - goal_y;
-    fScore = abs(heuristic_cost_x) + abs(heuristic_cost_y) + gScore;
-
-    
+    hScore_x = pos_x - goal_x;
+    hScore_y = pos_y - goal_y;
+    fScore = gScore + abs(hScore_x) + abs(hScore_y);
 
     //if a node with same position as successor is in the OPEN list, skip it
     for (char i = 0; i < OPEN_SET_SIZE; i++) {
         if (neighbour == open_set[i]) {
             printf("\n=============================test========================\n");
             printf("neighbour on open set = %p\n",neighbour);
-            return fScore;
+            flag = 1;
         }
     }
     //if a node with same position as successor is in the CLOSE list, skip it
@@ -272,11 +281,36 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsi
         if (neighbour == closed_set[i]) {
             printf("\n=============================test========================\n");
             printf("neighbour on closed_set = %p\n",neighbour);
-            return fScore;
+            flag = 1;
         }
     }
     //otherwise add node to open list
-    pushToOpenSet(neighbour);
+    if (flag != 1) pushToOpenSet(neighbour);
 
     return fScore;
+}
+
+unsigned char findDirectionToTravel(struct NEIGHBOUR neighbour) {
+    unsigned char neighbour_travel[4];
+    unsigned char lowest_travel = 255;
+    unsigned char direction = 0;
+
+    neighbour_travel[0] = *neighbour.up;
+    neighbour_travel[1] = *neighbour.right;
+    neighbour_travel[2] = *neighbour.down;
+    neighbour_travel[3] = *neighbour.left;
+    
+    //the statement here checks for lowest values in neighbours, and saves it for direction to travel. 
+    //note, because neighbour.left is checked LAST, and the sign <= is used, it is left justified.
+    //therefore it chooses directions with same distance in order, left, down, right, up
+    for (char i = 0; i < 4; i++){
+        if (neighbour_travel[i] == 200) {
+            return i + 1;
+        } else if (neighbour_travel[i] < 100 && neighbour_travel[i] <= lowest_travel) {
+            lowest_travel = neighbour_travel[i];
+            direction = i + 1;
+        }
+    }
+
+    return direction; //direction is either 1 (up), 2 (right), 3 (down), 4 (left) 
 }

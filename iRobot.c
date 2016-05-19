@@ -300,8 +300,8 @@ void explore(void) {
 
     //==============================================================
     //==============================================================
-    //==============================================================test code 5
-    printf("\n============ STEP 5 ============\n");
+    //==============================================================test code 6
+    printf("\n============ STEP 6 ============\n");
     adc_distance = 0;
     x = 1;
     y = 0;
@@ -333,6 +333,61 @@ void explore(void) {
 
     //set robot position to centre array cell
     writeLocalMap(UP,1,1);
+
+    printf("\n====== LOCAL MAP ======\n");
+    for (char x = 0; x < LOCAL_X; x++) {
+        for (char y = 0; y < LOCAL_Y; y++) {
+            printf("%d, ", local_map[x][y] );
+        }
+        printf("\n");
+    }
+
+    direction_to_travel = findPathAStar(robot_x, robot_y, goal_x, goal_y);
+
+    printf("\n====== GLOBAL MAP ======\n");
+    for (char x = 0; x < GLOBAL_X; x++) {
+        for (char y = 0; y < GLOBAL_Y; y++) {
+            printf("%d, ", global_map[x][y] );
+        }
+        printf("\n");
+    }
+    printf("direction to travel = %d \n\n",direction_to_travel);
+
+    //==============================================================
+    //==============================================================
+    //==============================================================test code 7
+    printf("\n============ STEP 7 ============\n");
+    adc_distance = 0;
+    x = 1;
+    y = 0;
+    stepper_pos = 0;
+
+    robot_x = 0;
+    robot_y = 4;
+    
+    setupLocalMap();
+    for (char i = 0; i < 5; i++) {
+        switch (stepper_pos) {
+            case 0: adc_distance = 50; break;
+            case 1: adc_distance = 100; break;
+            case 2: adc_distance = 150; break;
+            case 3: adc_distance = 100; break;
+            case 4: adc_distance = 150; break;
+        }
+
+        writeLocalMap(adc_distance, x, y);
+                
+        switch (stepper_pos) {
+            case 0: x--; stepper_pos++; break;
+            case 1: y++; stepper_pos++; break;
+            case 2: y++; stepper_pos++; break;
+            case 3: x++; stepper_pos++; break;
+            case 4: x++; stepper_pos++; break;
+        }
+    }
+
+    //set robot position to centre array cell
+    writeLocalMap(DOWN,1,1);
 
     printf("\n====== LOCAL MAP ======\n");
     for (char x = 0; x < LOCAL_X; x++) {

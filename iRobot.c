@@ -2,7 +2,7 @@
 
 void explore(void) {
     char direction_to_travel = 0;
-    int robot_x = 3;
+    int robot_x;
     int robot_y;
     char goal_x = 0;
     char goal_y = 3;

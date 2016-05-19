@@ -12,12 +12,17 @@ struct NEIGHBOUR {
 } neighbour;
 
 //declare local functions
-void initialisePointersNULL(unsigned char *array[], char size);
-void removeFromOpenSet(unsigned char *item_to_remove);
-void pushToClosedSet(unsigned char *current_open_set);
-unsigned char *getNeighbourNodes(unsigned char *current_node, unsigned char neighbour_node);
-unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *goal, unsigned char *robot, char goal_x, char goal_y);
-unsigned char findDirectionToTravel(struct NEIGHBOUR neighbour);
+void setupGlobalMap(void);
+void setupLocalMap(void);
+void writeGlobalMap(unsigned char, char, char);
+char findPathAStar(char, char, char, char);
+void initialisePointersNULL(unsigned char **, char);
+void removeFromOpenSet(unsigned char *);
+void pushToClosedSet(unsigned char *);
+void pushToOpenSet(unsigned char *);
+unsigned char *getNeighbourNodes(unsigned char *, unsigned char );
+unsigned char checkNeighbour(unsigned char *, unsigned char *, unsigned char *, char , char );
+unsigned char findDirectionToTravel(struct NEIGHBOUR);
 
 void setupExplore(void) {
     setupGlobalMap();
@@ -78,8 +83,8 @@ void writeGlobalMap(unsigned char value, char x, char y) {
     printf("global_map[%d][%d] = %d\n", x,y, global_map[x][y] );
 }
 
-void writeLocalMap(unsigned int adc_distance, char x, char y) {
-    local_map [x][y] = adc_distance;
+void writeLocalMap(unsigned int value, char x, char y) {
+    local_map [x][y] = value;
 }
 
 char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
@@ -88,8 +93,6 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
     unsigned char *robot_position = &global_map[robot_x][robot_y];
     unsigned char direction_to_travel = 0;
     unsigned char iteration = 0;
-
-    struct NEIGHBOUR neighbour;
 
     //check if robot is in goal positon
     if (goal_position == robot_position) return 0;
@@ -102,7 +105,7 @@ char findPathAStar(char robot_x, char robot_y, char goal_x, char goal_y) {
     writeGlobalMap(ROBOT, robot_x, robot_y);
     writeGlobalMap(GOAL, goal_x, goal_y);
 
-    open_set[0] = robot_position;                       //put starting node on open set list
+    pushToOpenSet(robot_position);                       //put starting node on open set list
     
     printf("open_set[0] = %x\n", open_set[0]);
 
@@ -198,23 +201,23 @@ void removeFromOpenSet(unsigned char *item_to_remove) {
     }
 }
 
-void pushToClosedSet(unsigned char *current_open_set){
+void pushToClosedSet(unsigned char *item_to_push) {
     for (char i = 0; i < CLOSED_SET_SIZE; i++) {
-        if (closed_set[i] == current_open_set) {
+        if (closed_set[i] == item_to_push) {
             break;
         } else if (closed_set[i] == 0) {
-            closed_set[i] = current_open_set;
+            closed_set[i] = item_to_push;
             break;
         }
     }
 }
 
-void pushToOpenSet(unsigned char *current_neighbour){
+void pushToOpenSet(unsigned char *item_to_push) {
     for (char i = 0; i < OPEN_SET_SIZE; i++) {
-        if (open_set[i] == current_neighbour) {
+        if (open_set[i] == item_to_push) {
             break;
         } else if (open_set[i] == 0) {
-            open_set[i] = current_neighbour;
+            open_set[i] = item_to_push;
             break;
         }
     }

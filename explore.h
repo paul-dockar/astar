@@ -23,11 +23,8 @@
 #define     LEFT            4
 
 void setupExplore(void);
-void setupGlobalMap(void);
-void setupLocalMap(void);
-void writeGlobalMap(unsigned char, char, char);
-void writeLocalMap(unsigned int, char, char);
 char findPathAStar(char, char, char, char);
+void writeLocalMap(unsigned int, char, char);
 
 unsigned char global_map [GLOBAL_X][GLOBAL_Y];
 unsigned char local_map  [LOCAL_X][LOCAL_Y];

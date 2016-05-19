@@ -131,7 +131,7 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *local, uns
     char hScore_y = 0;
     char pos_x = 0;
     char pos_y = 0;
-    char flag = 0;      //note this is char atm till in mplab where it should be a bit
+    char neighbour_already_on_list_flag = 0;      //note this is char atm till in mplab where it should be a bit
 
     //wall check needs to beefore the rest
     if (*neighbour == WALL)     return WALL;
@@ -157,17 +157,17 @@ unsigned char checkNeighbour(unsigned char *neighbour, unsigned char *local, uns
     //if a node with same position as successor is in the OPEN list, skip it
     for (char i = 0; i < OPEN_SET_SIZE; i++) {
         if (neighbour == open_set[i]) {
-            flag = 1;
+            neighbour_already_on_list_flag = 1;
         }
     }
     //if a node with same position as successor is in the CLOSE list, skip it
     for (char i = 0; i < CLOSED_SET_SIZE; i++) {
         if (neighbour == closed_set[i]) {
-            flag = 1;
+            neighbour_already_on_list_flag = 1;
         }
     }
     //otherwise add node to open list
-    if (flag != 1) pushToOpenSet(neighbour);
+    if (neighbour_already_on_list_flag != 1) pushToOpenSet(neighbour);
 
     return fScore;
 }
@@ -197,7 +197,7 @@ char findDirectionToTravel(struct NEIGHBOUR neighbour) {
     //if walls are everywhere then its a deadend!
     if (lowest_travel > 250) direction = -1;
 
-    return direction; //direction is either 1 (up), 2 (right), 3 (down), 4 (left), or -1 for dead-end
+    return direction; //direction is either 1 (up), 2 (right), 3 (down), 4 (left), or -1 (dead-end)
 }
 
 void marryUpLocalMapData(struct LOCAL local, char robot_x, char robot_y) {

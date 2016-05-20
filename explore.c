@@ -220,35 +220,35 @@ void marryUpLocalMapData(struct LOCAL local, char robot_x, char robot_y) {
     #define     back_wall_check()       (*local.back     < 100 || *local.back    >= 250)
     #define     left_wall_check()       (*local.left     < 100 || *local.left    >= 250)
 
-    #define     X_minus_1()   global_map[robot_x - 1][robot_y]
-    #define     Y_minus_1()   global_map[robot_x][robot_y - 1]
-    #define     X_plus_1()    global_map[robot_x + 1][robot_y]
-    #define     Y_plus_1()    global_map[robot_x][robot_y + 1]
+    #define     x_minus_one()   global_map[robot_x - 1][robot_y]
+    #define     y_minus_one()   global_map[robot_x][robot_y - 1]
+    #define     x_plus_one()    global_map[robot_x + 1][robot_y]
+    #define     y_plus_one()    global_map[robot_x][robot_y + 1]
 
     switch (local.robot_direction) {
         case UP:
-            if (robot_x_min_check() && forward_wall_check())    X_minus_1() = WALL;
-            if (robot_y_max_check() && right_wall_check())      Y_plus_1()  = WALL;
-            if (robot_x_max_check() && back_wall_check())       X_plus_1()  = WALL;
-            if (robot_y_min_check() && left_wall_check())       Y_minus_1() = WALL;
+            if (robot_x_min_check() && forward_wall_check())    x_minus_one() = WALL;
+            if (robot_y_max_check() && right_wall_check())      y_plus_one()  = WALL;
+            if (robot_x_max_check() && back_wall_check())       x_plus_one()  = WALL;
+            if (robot_y_min_check() && left_wall_check())       y_minus_one() = WALL;
             break;
         case RIGHT:
-            if (robot_y_max_check() && forward_wall_check())    Y_plus_1()  = WALL;
-            if (robot_x_max_check() && right_wall_check())      X_plus_1()  = WALL;
-            if (robot_y_min_check() && back_wall_check())       Y_minus_1() = WALL;
-            if (robot_x_min_check() && left_wall_check())       X_minus_1() = WALL;
+            if (robot_y_max_check() && forward_wall_check())    y_plus_one()  = WALL;
+            if (robot_x_max_check() && right_wall_check())      x_plus_one()  = WALL;
+            if (robot_y_min_check() && back_wall_check())       y_minus_one() = WALL;
+            if (robot_x_min_check() && left_wall_check())       x_minus_one() = WALL;
             break;
         case DOWN:
-            if (robot_x_max_check() && forward_wall_check())    X_plus_1()  = WALL;
-            if (robot_y_min_check() && right_wall_check())      Y_minus_1() = WALL;
-            if (robot_x_min_check() && back_wall_check())       X_minus_1() = WALL;
-            if (robot_y_max_check() && left_wall_check())       Y_plus_1()  = WALL;
+            if (robot_x_max_check() && forward_wall_check())    x_plus_one()  = WALL;
+            if (robot_y_min_check() && right_wall_check())      y_minus_one() = WALL;
+            if (robot_x_min_check() && back_wall_check())       x_minus_one() = WALL;
+            if (robot_y_max_check() && left_wall_check())       y_plus_one()  = WALL;
             break;
         case LEFT:
-            if (robot_y_min_check() && forward_wall_check())    Y_minus_1() = WALL;
-            if (robot_x_min_check() && right_wall_check())      X_minus_1() = WALL;
-            if (robot_y_max_check() && back_wall_check())       Y_plus_1()  = WALL;
-            if (robot_x_max_check() && left_wall_check())       X_plus_1()  = WALL;
+            if (robot_y_min_check() && forward_wall_check())    y_minus_one() = WALL;
+            if (robot_x_min_check() && right_wall_check())      x_minus_one() = WALL;
+            if (robot_y_max_check() && back_wall_check())       y_plus_one()  = WALL;
+            if (robot_x_max_check() && left_wall_check())       x_plus_one()  = WALL;
             break;
     }
 }
@@ -299,6 +299,7 @@ void rearrangeOpenSet(void) {
     for (char i = 0; i < OPEN_SET_SIZE; i++) {
         if (open_set[i] == 0 && i < (OPEN_SET_SIZE - 1)) {
             open_set[i] = open_set[i+1];
+            open_set[i+1] = 0;
         }
     }
 }

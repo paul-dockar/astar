@@ -1,63 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings version="1.0">
-	<category name="iRobot.c">
-		<category name="Window">
-			<property name="Left" type="integer">25</property>
-			<property name="Top" type="integer">25</property>
-			<property name="Right" type="integer">1465</property>
-			<property name="Bottom" type="integer">565</property>
-			<property name="Maximized" type="integer">0</property>
-			<property name="Active" type="integer">0</property>
-		</category>
-	</category>
-	<category name="main.c">
-		<category name="Window">
-			<property name="Left" type="integer">50</property>
-			<property name="Top" type="integer">50</property>
-			<property name="Right" type="integer">1490</property>
-			<property name="Bottom" type="integer">590</property>
-			<property name="Maximized" type="integer">0</property>
-			<property name="Active" type="integer">0</property>
-		</category>
-	</category>
-	<category name="main.h">
-		<category name="Window">
-			<property name="Left" type="integer">75</property>
-			<property name="Top" type="integer">75</property>
-			<property name="Right" type="integer">1515</property>
-			<property name="Bottom" type="integer">615</property>
-			<property name="Maximized" type="integer">0</property>
-			<property name="Active" type="integer">0</property>
-		</category>
-	</category>
-	<category name="iRobot.h">
-		<category name="Window">
-			<property name="Left" type="integer">100</property>
-			<property name="Top" type="integer">100</property>
-			<property name="Right" type="integer">1540</property>
-			<property name="Bottom" type="integer">640</property>
-			<property name="Maximized" type="integer">0</property>
-			<property name="Active" type="integer">0</property>
-		</category>
-	</category>
-	<category name="explore.h">
-		<category name="Window">
-			<property name="Left" type="integer">125</property>
-			<property name="Top" type="integer">125</property>
-			<property name="Right" type="integer">1565</property>
-			<property name="Bottom" type="integer">665</property>
-			<property name="Maximized" type="integer">0</property>
-			<property name="Active" type="integer">0</property>
-		</category>
-	</category>
-	<category name="explore.c">
-		<category name="Window">
-			<property name="Left" type="integer">-8</property>
-			<property name="Top" type="integer">-30</property>
-			<property name="Right" type="integer">1268</property>
-			<property name="Bottom" type="integer">728</property>
-			<property name="Maximized" type="integer">1</property>
-			<property name="Active" type="integer">1</property>
-		</category>
-	</category>
+	<category name="iRobot.c" />
+	<category name="main.c" />
+	<category name="main.h" />
+	<category name="iRobot.h" />
+	<category name="explore.h" />
+	<category name="explore.c" />
 </settings>

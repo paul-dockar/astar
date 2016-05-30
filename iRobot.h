@@ -25,31 +25,31 @@
 #define     VIRTWALL_SENSOR     13
 
 //IROBOT WHEEL SPEED DEFINES
-#define     RIGHT_WHEEL_FAST     200         //right wheel speed in mm/s. right wheel slightly faster than left wheel, so compensate
-#define     LEFT_WHEEL_FAST      200         //left wheel speed in mm/s
-#define     RIGHT_WHEEL_SLOW     50          //right wheel speed in mm/s. right wheel slightly faster than left wheel, so compensate
-#define     LEFT_WHEEL_SLOW      50         //left wheel speed in mm/s
+#define     RIGHT_WHEEL_FAST     300         //right wheel speed in mm/s. right wheel slightly faster than left wheel, so compensate
+#define     LEFT_WHEEL_FAST      300         //left wheel speed in mm/s
+#define     RIGHT_WHEEL_SLOW     100         //right wheel speed in mm/s. right wheel slightly faster than left wheel, so compensate
+#define     LEFT_WHEEL_SLOW      100         //left wheel speed in mm/s
 
-//IROBOT MANEUVERS
-#define     SHARP_RIGHT()       drive(-80,LEFT_WHEEL_FAST);
-#define     SHARP_LEFT()        drive(RIGHT_WHEEL_FAST,-80);
-#define     SHARP_RIGHT2()      drive(-90,LEFT_WHEEL_FAST);
-#define     SHARP_LEFT2()       drive(RIGHT_WHEEL_FAST,-90);
-#define     SLOW_RIGHT()        drive(150,LEFT_WHEEL_FAST);
-#define     SLOW_LEFT()         drive(RIGHT_WHEEL_FAST,150);
 
-#define     SPIN_RIGHT_F()        drive(-RIGHT_WHEEL_FAST,LEFT_WHEEL_FAST);
-#define     SPIN_LEFT_F()         drive(RIGHT_WHEEL_FAST,-LEFT_WHEEL_FAST);
-#define     SPIN_RIGHT_S()        drive(-RIGHT_WHEEL_SLOW,LEFT_WHEEL_FAST);
-#define     SPIN_LEFT_S()         drive(RIGHT_WHEEL_SLOW,-LEFT_WHEEL_FAST);
+int total_distance_travel;                      //Global variable which holds the total distance travelled, allowing to write to the LCD from any function.
+char reset_flag;
+char exploring;
+char move_stepper;
+char slow_flag;
+char victim_found_flag;
+unsigned char *victim_one_location;
+unsigned char *victim_two_location;
+unsigned char victim_count;
+int total_distance_travel;
 
-#define     DRIVE_STRAIGHT_F()  drive(RIGHT_WHEEL_FAST,LEFT_WHEEL_FAST);
-#define     DRIVE_STRAIGHT_S()  drive(RIGHT_WHEEL_SLOW,LEFT_WHEEL_SLOW);
-#define     DRIVE_BACKWARD()    drive(-RIGHT_WHEEL_FAST,-LEFT_WHEEL_FAST);
-#define     DRIVE_STOP()        drive(0,0); __delay_ms(800);
+volatile char cliff_flag;
+volatile char bump_flag;
+volatile char virt_wall_flag;
+volatile char update_pos_flag;
 
 void explore(void);
-int abs(int a);
+void victimCheck(unsigned char robot_x, unsigned char robot_y);
 
+signed char abs_char(signed char a);
 
 #endif	/* IROBOT_H */

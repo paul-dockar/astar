@@ -40,6 +40,7 @@ char victim_found_flag;
 unsigned char *victim_one_location;
 unsigned char *victim_two_location;
 unsigned char victim_count;
+unsigned char victim_home_flag;
 int total_distance_travel;
 
 volatile char cliff_flag;

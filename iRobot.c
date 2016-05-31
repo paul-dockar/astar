@@ -261,6 +261,7 @@ void explore(void) {
 			            case 4: x++; stepper_pos++; break;
 			        }
 			    }
+				victim_found_flag = 1;
 				break;
 			case 10: 
 			    for (char i = 0; i < 5; i++) {
@@ -345,7 +346,6 @@ void explore(void) {
 			            case 4: x++; stepper_pos++; break;
 			        }
 			    }
-				victim_found_flag = 1;
 				break;
 			case 14: 
 			    for (char i = 0; i < 5; i++) {
@@ -430,6 +430,7 @@ void explore(void) {
 			            case 4: x++; stepper_pos++; break;
 			        }
 			    }
+				victim_found_flag = 1;
 				break;
 			case 18: 
 			    for (char i = 0; i < 5; i++) {
@@ -520,51 +521,6 @@ void explore(void) {
 			        switch (stepper_pos) {
 			            case 0: adc_distance = 50; break;
 			            case 1: adc_distance = 99; break;
-			            case 2: adc_distance = 150; break;
-			            case 3: adc_distance = 99; break;
-			            case 4: adc_distance = 50; break;
-			        }
-
-			        writeLocalMap(adc_distance, x, y);
-			        
-			        switch (stepper_pos) {
-			            case 0: x--; stepper_pos++; break;
-			            case 1: y++; stepper_pos++; break;
-			            case 2: y++; stepper_pos++; break;
-			            case 3: x++; stepper_pos++; break;
-			            case 4: x++; stepper_pos++; break;
-			        }
-			    }
-				bump_flag = 1;
-				update_pos_flag = 1;
-				break;
-			case 23: 
-			    for (char i = 0; i < 5; i++) {
-			        switch (stepper_pos) {
-			            case 0: adc_distance = 150; break;
-			            case 1: adc_distance = 99; break;
-			            case 2: adc_distance = 150; break;
-			            case 3: adc_distance = 99; break;
-			            case 4: adc_distance = 150; break;
-			        }
-
-			        writeLocalMap(adc_distance, x, y);
-			        
-			        switch (stepper_pos) {
-			            case 0: x--; stepper_pos++; break;
-			            case 1: y++; stepper_pos++; break;
-			            case 2: y++; stepper_pos++; break;
-			            case 3: x++; stepper_pos++; break;
-			            case 4: x++; stepper_pos++; break;
-			        }
-			    }
-				temp_global_info_flag = 1;
-				break;
-			case 24: 
-			    for (char i = 0; i < 5; i++) {
-			        switch (stepper_pos) {
-			            case 0: adc_distance = 150; break;
-			            case 1: adc_distance = 99; break;
 			            case 2: adc_distance = 50; break;
 			            case 3: adc_distance = 99; break;
 			            case 4: adc_distance = 150; break;
@@ -580,6 +536,49 @@ void explore(void) {
 			            case 4: x++; stepper_pos++; break;
 			        }
 			    }
+				break;
+			case 23: 
+			    for (char i = 0; i < 5; i++) {
+			        switch (stepper_pos) {
+			            case 0: adc_distance = 50; break;
+			            case 1: adc_distance = 99; break;
+			            case 2: adc_distance = 150; break;
+			            case 3: adc_distance = 99; break;
+			            case 4: adc_distance = 150; break;
+			        }
+
+			        writeLocalMap(adc_distance, x, y);
+			        
+			        switch (stepper_pos) {
+			            case 0: x--; stepper_pos++; break;
+			            case 1: y++; stepper_pos++; break;
+			            case 2: y++; stepper_pos++; break;
+			            case 3: x++; stepper_pos++; break;
+			            case 4: x++; stepper_pos++; break;
+			        }
+			    }
+				break;
+			case 24: 
+			    for (char i = 0; i < 5; i++) {
+			        switch (stepper_pos) {
+			            case 0: adc_distance = 50; break;
+			            case 1: adc_distance = 99; break;
+			            case 2: adc_distance = 150; break;
+			            case 3: adc_distance = 99; break;
+			            case 4: adc_distance = 150; break;
+			        }
+
+			        writeLocalMap(adc_distance, x, y);
+			        
+			        switch (stepper_pos) {
+			            case 0: x--; stepper_pos++; break;
+			            case 1: y++; stepper_pos++; break;
+			            case 2: y++; stepper_pos++; break;
+			            case 3: x++; stepper_pos++; break;
+			            case 4: x++; stepper_pos++; break;
+			        }
+			    }
+				victim_found_flag = 1;
 				break;
 			case 25: 
 			    for (char i = 0; i < 5; i++) {
@@ -605,9 +604,9 @@ void explore(void) {
 			case 26: 
 			    for (char i = 0; i < 5; i++) {
 			        switch (stepper_pos) {
-			            case 0: adc_distance = 50; break;
+			            case 0: adc_distance = 150; break;
 			            case 1: adc_distance = 99; break;
-			            case 2: adc_distance = 50; break;
+			            case 2: adc_distance = 150; break;
 			            case 3: adc_distance = 99; break;
 			            case 4: adc_distance = 150; break;
 			        }
@@ -630,7 +629,7 @@ void explore(void) {
 			            case 1: adc_distance = 99; break;
 			            case 2: adc_distance = 150; break;
 			            case 3: adc_distance = 99; break;
-			            case 4: adc_distance = 150; break;
+			            case 4: adc_distance = 50; break;
 			        }
 
 			        writeLocalMap(adc_distance, x, y);
@@ -689,9 +688,9 @@ void explore(void) {
 			case 30: 
 			    for (char i = 0; i < 5; i++) {
 			        switch (stepper_pos) {
-			            case 0: adc_distance = 150; break;
+			            case 0: adc_distance = 50; break;
 			            case 1: adc_distance = 99; break;
-			            case 2: adc_distance = 50; break;
+			            case 2: adc_distance = 150; break;
 			            case 3: adc_distance = 99; break;
 			            case 4: adc_distance = 50; break;
 			        }
@@ -706,7 +705,6 @@ void explore(void) {
 			            case 4: x++; stepper_pos++; break;
 			        }
 			    }
-				victim_found_flag = 1;
 				break;
 			case 31: 
 			    for (char i = 0; i < 8; i++) {
@@ -997,7 +995,7 @@ void explore(void) {
 	        printf("\n");
 	    }
         
-        if (victim_count == 2) {
+        if (victim_count == 2 && victim_home_flag == 1) {
 			if (robot_x >= 2 || robot_y >= 3) {
 				goal_x = 3;
 				goal_y = 2;
@@ -1009,6 +1007,7 @@ void explore(void) {
 			if (temp_home_goal == &global_map[robot_x][robot_y]) {
 				goal_x = 0;
 				goal_y = 1;
+				victim_home_flag = 0;
 			}
         }
 
@@ -1102,6 +1101,7 @@ void victimCheck(unsigned char robot_x, unsigned char robot_y) {
             victim_two_location = &global_map[robot_x][robot_y];
             victim_count++;
 			reset_flag = 1;
+			victim_home_flag = 1;
         }
     }
     victim_found_flag = 0;
